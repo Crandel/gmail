@@ -6,7 +6,7 @@ require (
 	github.com/lmittmann/tint v1.0.6
 	github.com/zalando/go-keyring v0.2.6
 	golang.org/x/oauth2 v0.24.0
-	google.golang.org/api v0.213.0
+	google.golang.org/api v0.214.0
 )
 
 require (
