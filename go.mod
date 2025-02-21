@@ -1,6 +1,7 @@
 module github.com/Crandel/gmail
 
-go 1.23
+go 1.24
+
 require (
 	github.com/lmittmann/tint v1.0.7
 	github.com/zalando/go-keyring v0.2.6
