@@ -64,7 +64,7 @@ func main() {
 
 	accLen := len(listAccounts)
 	counts := make([]string, accLen)
-	for i := 0; i < accLen; i++ {
+	for i := range accLen {
 		counts[i] = <-channel
 	}
 	fmt.Println(strings.Join(counts, ""))
