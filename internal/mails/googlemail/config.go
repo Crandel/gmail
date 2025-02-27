@@ -12,6 +12,7 @@ import (
 	"github.com/Crandel/gmail/internal/file"
 )
 
+// SetConfig will write client credentials to config file.
 func SetConfig(clientID, filename string) error {
 	b, err := os.ReadFile(filename)
 	if err != nil {
@@ -32,8 +33,7 @@ func SetConfig(clientID, filename string) error {
 	if err == nil {
 		return fmt.Errorf("credential file %s already exists", credentialsFile)
 	}
-	os.WriteFile(credentialsFile, b, 0644)
-	return nil
+	return os.WriteFile(credentialsFile, b, 0644)
 }
 
 // GetConfig will return oauth2 config for clientID.
