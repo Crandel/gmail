@@ -26,3 +26,4 @@ vendor/*
 # config
 config.json
 /.vscode/
+.aider*
