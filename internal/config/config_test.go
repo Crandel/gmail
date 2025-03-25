@@ -49,10 +49,10 @@ func TestAddNewUser(t *testing.T) {
 
 	for _, td := range testData {
 		// Create a mock reader that returns the test data when ReadString is called.
-		mockReader := &MockBufioReader{input: []string{td.testAccount.Short, td.testAccount.Type, td.testAccount.Email, td.testAccount.ClientID}}
+		mockReader := &MockBufioReader{input: []string{td.Short, td.Type, td.Email, td.ClientID}}
 		account, err := addNewUser(mockReader)
 		if td.error != nil {
-			if err.Error() != td.error.Error() {
+			if err.Error() != td.Error() {
 				t.Errorf("addNewUser returned different error: got '%+v', want '%+v'", err, td.error)
 			}
 			continue
@@ -60,7 +60,7 @@ func TestAddNewUser(t *testing.T) {
 		if reflect.DeepEqual(account, td.testAccount) {
 			t.Errorf("addNewUser returned incorrect account: got %+v, want Short=%s, Type=%s, Email=%s, ClientId =%s",
 				account,
-				td.testAccount.Short, td.testAccount.Type, td.testAccount.Email, td.testAccount.ClientID)
+				td.Short, td.Type, td.Email, td.ClientID)
 		}
 	}
 }
