@@ -40,3 +40,12 @@ func (kh keyringHandler) SetEntry(key string, data string) error {
 	}
 	return nil
 }
+
+func (kh keyringHandler) DeleteEntry(key string) error {
+	err := k.Delete(kh.name, key)
+	if err != nil {
+		slog.Debug("can't delete credential from keyring", slog.Any("error", err))
+		return err
+	}
+	return nil
+}
