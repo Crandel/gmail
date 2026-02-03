@@ -3,7 +3,7 @@ module github.com/Crandel/gmail
 go 1.25
 
 require (
-	github.com/lmittmann/tint v1.1.2
+	github.com/lmittmann/tint v1.1.3
 	github.com/zalando/go-keyring v0.2.6
 	golang.org/x/oauth2 v0.34.0
 	google.golang.org/api v0.264.0
