@@ -1,12 +1,12 @@
 module github.com/Crandel/gmail
 
-go 1.25
+go 1.25.0
 
 require (
 	github.com/lmittmann/tint v1.1.3
 	github.com/zalando/go-keyring v0.2.6
 	golang.org/x/oauth2 v0.35.0
-	google.golang.org/api v0.267.0
+	google.golang.org/api v0.268.0
 )
 
 require (
