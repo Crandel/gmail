@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/lmittmann/tint v1.2.1
 	github.com/zalando/go-keyring v0.2.8
-	golang.org/x/oauth2 v0.37.0
+	golang.org/x/oauth2 v0.38.0
 	google.golang.org/api v0.311.0
 )
 
