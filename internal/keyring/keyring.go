@@ -10,6 +10,7 @@ import (
 type Handler interface {
 	GetEntry(key string) (string, error)
 	SetEntry(key string, data string) error
+	DeleteEntry(key string) error
 }
 type keyringHandler struct {
 	name string

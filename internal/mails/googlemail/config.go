@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"path/filepath"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -12,7 +13,10 @@ import (
 	"github.com/Crandel/gmail/internal/file"
 )
 
-// SetConfig will write client credentials to config file.
+const credentialsFileMode = 0600
+
+// SetConfig will write client credentials to config file. The JSON is
+// validated first, and an existing credential file is never overwritten.
 func SetConfig(clientID, filename string) error {
 	b, err := os.ReadFile(filename)
 	if err != nil {
@@ -28,30 +32,23 @@ func SetConfig(clientID, filename string) error {
 	if err != nil {
 		return fmt.Errorf("unable to get cache dir: %w", err)
 	}
-	credentialsFile := fmt.Sprintf("%s/%s.json", cacheDir, clientID)
-	_, err = os.Stat(credentialsFile)
-	if err == nil {
+	credentialsFile := filepath.Join(cacheDir, clientID+".json")
+	if _, err := os.Stat(credentialsFile); err == nil {
 		return fmt.Errorf("credential file %s already exists", credentialsFile)
 	}
-	return os.WriteFile(credentialsFile, b, 0644)
+	return os.WriteFile(credentialsFile, b, credentialsFileMode)
 }
 
-// GetConfig will return oauth2 config for clientID.
+// GetConfig will return oauth2 config for clientID. A missing credential file
+// is an error; no file is created as a side effect.
 func GetConfig(clientID string) (*oauth2.Config, error) {
 	cacheDir, err := file.GetCacheDir()
 	if err != nil {
 		return nil, fmt.Errorf("unable to get cache dir: %w", err)
 	}
-	credentialsFile := fmt.Sprintf("%s/%s.json", cacheDir, clientID)
+	credentialsFile := filepath.Join(cacheDir, clientID+".json")
 
 	slog.Debug("credentialsFile: " + credentialsFile)
-	_, err = os.Stat(credentialsFile)
-	if err != nil {
-		_, err = os.Create(credentialsFile)
-		if err != nil {
-			return nil, fmt.Errorf("unable to create credential file: %w", err)
-		}
-	}
 	b, err := os.ReadFile(credentialsFile)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read client secret file: %w", err)
